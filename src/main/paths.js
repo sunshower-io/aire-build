@@ -9,14 +9,14 @@ const fs = require('fs'),
     };
 
 const mergePaths = () => {
-    // let cwd = process.cwd(),
-    //     localFilePath = `${cwd}/build/paths.js`,
-    //     localFile = fs.lstatSync(localFilePath),
-    //     contents = localFile && require(localFilePath);
-    //
-    // if (contents) {
-    //     return Object.assign(globalPaths, contents);
-    // }
+    let cwd = process.cwd(),
+        localFilePath = `${cwd}/build/paths.js`,
+        localFile = fs.lstatSync(localFilePath),
+        contents = localFile && require(localFilePath);
+
+    if (contents) {
+        return Object.assign(globalPaths, contents);
+    }
     return globalPaths;
 };
 
