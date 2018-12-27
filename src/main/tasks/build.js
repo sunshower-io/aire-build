@@ -9,6 +9,7 @@ const
     log = require('gulp-util'),
     concat = require('gulp-concat'),
     pug = require('gulp-pug'),
+    dox = require('gulp-doxs'),
     rename = require('gulp-rename'),
     typescript = require('gulp-typescript'),
     sourcemaps = require('gulp-sourcemaps'),
