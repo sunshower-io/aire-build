@@ -89,6 +89,9 @@ const locatePackageIn = (packageFile, name) => {
     console.info(`Successfully resolved package: ${name} at ${result}`);
     return result;
 };
+const locatePackage = name => {
+    return locatePackageIn(pkg, name);
+};
 
 const parentDirectory = p => {
     let segments = p.split(path.sep);
@@ -106,9 +109,6 @@ const reparent = p => {
     return p;
 };
 
-const locatePackage = name => {
-    return locatePackageIn(pkg, name);
-};
 
 const fileName = dir => path.dirname(dir).split(path.sep).pop();
 

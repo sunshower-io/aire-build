@@ -1,5 +1,7 @@
 
-const paths = require('./src/main/paths.js'),
+const
+    root = process.cwd(),
+    paths = require('./src/main/paths.js'),
     buildscripts = require('./src/main/tasks/build.js'),
     cleanscripts = require('./src/main/tasks/clean.js'),
     servescripts = require('./src/main/tasks/serve.js'),

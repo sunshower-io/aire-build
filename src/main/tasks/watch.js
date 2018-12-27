@@ -1,28 +1,33 @@
 module.paths.push(`${process.cwd()}/node_modules`);
 const
-    root = process.cwd(),
-    build = require('./build.js'),
-    gulp = require('gulp'),
-    paths = require('../paths.js'),
-    serve = require('./serve.js');
+    paths = require('../paths.js');
 
-
-const watch = (done) => {
-    if(paths.components) {
-        gulp.watch(paths.components, gulp.series('copy:components'));
-    }
-    gulp.watch(paths.pug, gulp.series('build:pug', 'reload'));
-    if(paths.allStyles) {
-        gulp.watch(paths.allStyles, gulp.series('build:sass', 'reload'));
-    }
-    gulp.watch(paths.typescript, gulp.series('build', 'reload'));
-};
 
 //**================================================================================
 // Task watch
 //================================================================================
 
-gulp.task('watch', gulp.parallel(watch, 'serve'));
+module.exports = (gulp) => {
+    const serve = require('./serve.js'),
+        generate = require('./site.js')(gulp);
+    console.log(paths.typescript);
+
+
+    const watch = (done) => {
+        gulp.watch(paths.pug, gulp.series('build:pug', 'reload'));
+        if(paths.allStyles) {
+            gulp.watch(paths.allStyles, gulp.series('build:sass', 'reload'));
+        }
+        if(paths.components && paths.generate) {
+            gulp.watch([paths.components, paths.extraComponents], gulp.series('aire:generate'))
+        }
+        gulp.watch(paths.typescript, gulp.series(gulp.parallel('build:ts', 'build:docs'), 'reload'));
+    };
+
+    gulp.task('reload', serve.reload);
+    gulp.task('serve', serve.synchronize);
+    gulp.task('watch', gulp.parallel(watch, 'serve'));
+};
 
 
 

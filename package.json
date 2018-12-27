@@ -1,6 +1,6 @@
 {
   "name": "@sunshower/aire-build",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Aire Universal Build Scripts",
   "main": "main.js",
   "scripts": {
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/sunshower-io/aire-build#readme",
   "dependencies": {
     "browser-sync": "^2.26.3",
+    "deepmerge": "^3.0.0",
     "del": "^3.0.0",
     "gulp": "^4.0.0",
     "gulp-concat": "^2.6.1",

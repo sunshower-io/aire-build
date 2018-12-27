@@ -1,7 +1,6 @@
 
 module.paths.push(`${process.cwd()}/node_modules`);
-const gulp = require('gulp'),
-    sync = require('browser-sync');
+const sync = require('browser-sync');
 
 
 //================================================================================
@@ -42,11 +41,10 @@ const reload = done  => {
 
 
 
-gulp.task('reload', reload);
-gulp.task('serve', synchronize);
-
 //================================================================================
 // module exports
 //================================================================================
 
 
+exports.reload = reload;
+exports.synchronize = synchronize;

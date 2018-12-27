@@ -1,4 +1,4 @@
-module.paths.push(`${process.cwd()}/node_modules`);
+// module.paths.push(`${process.cwd()}/node_modules`);
 
 const
     gulp = require('gulp'),
@@ -13,8 +13,9 @@ const
     rename = require('gulp-rename'),
     typescript = require('gulp-typescript'),
     sourcemaps = require('gulp-sourcemaps'),
-    project = typescript.createProject('tsconfig.json');
-
+    project = typescript.createProject('tsconfig.json'),
+    del = require('del'),
+    vinylPaths = require('vinyl-paths');
 
 
 const buildDocs = () => {
@@ -33,17 +34,20 @@ const buildScss = () => {
         cfg = include && include.length ? {
             includePaths: include
         } : {};
-    if (include) {
-        log.log("SCSS Include Directories:");
-        for (let dir of include) {
-            log.log(`\t${dir}`);
-        }
-    }
     return gulp.src(paths.styles)
         .pipe(scss(cfg).on('error', scss.logError))
         .pipe(concat('aire.css'))
         .pipe(gulp.dest(paths.output));
 
+};
+
+
+const buildIncludedScss = (done) => {
+    if (paths.includedStyles) {
+        return gulp.src(paths.includedStyles)
+            .pipe(gulp.dest(`${paths.dest}/scss`));
+    }
+    done();
 };
 
 //================================================================================
@@ -54,7 +58,7 @@ const buildScss = () => {
 const build = () => {
     return gulp
         .src(paths.typescript)
-        .pipe(sourcemaps.init({loadMaps:true}))
+        .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(project(typescript.reporter.fullReporter()))
         .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '.'}))
         .pipe(rename(utils.reparent))
@@ -81,32 +85,12 @@ const buildPug = () => {
 
 const copyMetadata = (done) => {
     if (paths.metadata) {
-        console.log(paths.metadata);
         return gulp.src(paths.metadata)
             .pipe(rename(utils.reparent))
             .pipe(gulp.dest(paths.output));
     }
     return done();
 };
-
-
-//================================================================================
-// copy components: copy all components to dist
-//================================================================================
-
-
-const copyComponents = done => {
-    if (paths.components) {
-        gulp.src(paths.components)
-            .pipe(rename(utils.reparent))
-            .pipe(gulp.dest(paths.output));
-    }
-    if(paths.allStyles) {
-        gulp.src(paths.allStyles).pipe(gulp.dest(`${paths.output}/scss`))
-    }
-    return done();
-};
-
 
 //================================================================================
 // copy scss: copy all scss to dist
@@ -124,13 +108,27 @@ const copyScss = () => {
 
 
 //================================================================================
+// aggregate
+//================================================================================
+
+
+module.exports = (gulp) => {
+
+    require('./watch.js')(gulp);
+    require('./site.js')(gulp);
+    gulp.task('clean', () => {
+        return gulp.src(paths.output, {
+            allowEmpty: true
+        }).pipe(vinylPaths(del));
+    });
+
+//================================================================================
 // copy
 //================================================================================
 
 
-gulp.task('copy:metadata', copyMetadata);
-gulp.task('copy:components', copyComponents);
-gulp.task('copy:sass', copyScss);
+    gulp.task('copy:metadata', copyMetadata);
+    gulp.task('copy:sass', copyScss);
 
 
 //================================================================================
@@ -138,28 +136,26 @@ gulp.task('copy:sass', copyScss);
 //================================================================================
 
 
-gulp.task('build:docs', buildDocs);
-gulp.task('build:pug', buildPug);
-gulp.task('build:sass',
-    gulp.series(
-        buildScss,
-        'copy:metadata',
-        'copy:components'
-    ));
+    gulp.task('build:ts', build);
+    gulp.task('build:docs', buildDocs);
+    gulp.task('build:pug', buildPug);
+    gulp.task('build:sass',
+        gulp.series(
+            buildIncludedScss,
+            buildScss,
+            'copy:metadata'
+        ));
+    gulp.task('build',
+        gulp.series('clean',
+            gulp.parallel(
+                'build:pug',
+                'build:docs',
+                'build:sass',
+                'build:ts',
+                'copy:metadata'
+            )));
 
 
-//================================================================================
-// aggregate
-//================================================================================
+};
 
-
-gulp.task('build',
-    gulp.parallel(
-        'build:pug',
-        'build:docs',
-        'build:sass',
-        build,
-        'copy:metadata',
-        'copy:components'
-    ));
 
