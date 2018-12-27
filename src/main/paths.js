@@ -11,7 +11,7 @@ const fs = require('fs'),
 const mergePaths = () => {
     let cwd = process.cwd(),
         localFilePath = `${cwd}/build/paths.js`,
-        localFile = fs.lstatSync(localFilePath),
+        localFile = fs.existsSync(localFilePath) && fs.lstatSync(localFilePath),
         contents = localFile && require(localFilePath);
 
     if (contents) {

@@ -36,7 +36,7 @@ const readSection = (c, component) => {
                             let ck = c[k];
                             if (ck.type.endsWith(nname)) {
                                 exs.push({
-                                    name: nname,
+                                    name: nname.split('_').join(' '),
                                     html: ck.html,
                                     string: ck.string
                                 });
@@ -180,23 +180,6 @@ const compileExamples = (component) => {
         }
     }
 };
-const compileExample = (str, component) => {
-
-    // let descr = parseDescriptor(str);
-    // component.examples = component.examples || [];
-    // if (descr.lang === 'pug' && descr.value) {
-    //     let value = descr.value.trim();
-    //     component.examples.push({
-    //         lang: 'html',
-    //         text: pug.compile(value)()
-    //     });
-    //     component.examples.push({
-    //         lang: 'pug',
-    //         text: value
-    //     })
-    // }
-};
-
 
 /**
  * aire:generate step 1
@@ -261,8 +244,12 @@ async function aireGenerate(done) {
     done();
 }
 
-module.exports = (gulp) => {
-    gulp.task('aire:generate', aireGenerate);
-};
+exports.readSection = readSection;
+exports.aireGenerate = aireGenerate;
+
+// module.exports = (gulp) => {
+//     gulp.task('aire:generate', aireGenerate);
+// };
+exports.loadComponent = loadComponent;
 
 

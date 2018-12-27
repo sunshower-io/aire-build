@@ -115,7 +115,8 @@ const copyScss = () => {
 module.exports = (gulp) => {
 
     require('./watch.js')(gulp);
-    require('./site.js')(gulp);
+    const site = require('./site.js')(gulp);
+    gulp.task('aire:generate', site.aireGenerate);
     gulp.task('clean', () => {
         return gulp.src(paths.output, {
             allowEmpty: true
