@@ -1,6 +1,6 @@
 {
   "name": "@sunshower/aire-build",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Aire Universal Build Scripts",
   "main": "main.js",
   "scripts": {
@@ -36,5 +36,7 @@
     "typescript": "^3.2.2",
     "vinyl-paths": "^2.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "gulp-dox": "^0.2.1"
+  }
 }

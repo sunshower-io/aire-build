@@ -16,6 +16,12 @@ const
 
 
 
+const buildDocs = () => {
+    return gulp.src(paths.typescript)
+        .pipe(dox())
+        .pipe(gulp.dest(paths.output));
+};
+
 //================================================================================
 // build scss
 //================================================================================
@@ -130,6 +136,7 @@ gulp.task('copy:sass', copyScss);
 //================================================================================
 
 
+gulp.task('build:docs', buildDocs());
 gulp.task('build:pug', buildPug);
 gulp.task('build:sass',
     gulp.series(
@@ -147,6 +154,7 @@ gulp.task('build:sass',
 gulp.task('build',
     gulp.parallel(
         'build:pug',
+        'build:docs',
         'build:sass',
         build,
         'copy:metadata',
