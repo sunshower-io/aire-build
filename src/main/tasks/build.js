@@ -20,6 +20,7 @@ const
 const buildDocs = () => {
     return gulp.src(paths.typescript)
         .pipe(dox())
+        .pipe(rename(utils.reparent))
         .pipe(gulp.dest(paths.output));
 };
 
