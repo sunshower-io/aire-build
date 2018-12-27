@@ -7,7 +7,6 @@ const
 
 
 const testClass = `
-
 /**
  *
  * this is a cool nav component
@@ -96,5 +95,5 @@ test('utils:readsection must read a section correctly when a section exists', ()
     expect(cmps.length).toBe(1);
     expect(cmps[0].sections.length).toBe(1);
     let secs = cmps[0].sections[0];
-    console.log(secs);
+    expect(secs.examples[1].name).toBe("Hello World");
 });
