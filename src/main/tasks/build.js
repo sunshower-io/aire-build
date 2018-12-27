@@ -137,7 +137,7 @@ gulp.task('copy:sass', copyScss);
 //================================================================================
 
 
-gulp.task('build:docs', buildDocs());
+gulp.task('build:docs', buildDocs);
 gulp.task('build:pug', buildPug);
 gulp.task('build:sass',
     gulp.series(
