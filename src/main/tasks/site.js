@@ -57,7 +57,7 @@ const readSection = (c, component) => {
                 }
             }
             sectionFound = true;
-            component.sections.push(section);
+            component.sections.unshift(section);
             c.splice(i, 1);
         }
     }
