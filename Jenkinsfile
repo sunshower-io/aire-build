@@ -56,7 +56,7 @@ pipeline {
                         /**
                          * release
                          */
-                        sh "npm version patch"
+                        sh "npm version patch --force -m 'releasing [skip-build]'"
 
                         sh "npm publish --access=public"
 
