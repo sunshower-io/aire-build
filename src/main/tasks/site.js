@@ -210,7 +210,7 @@ toNavigationElement = el => {
     return {
         nav: true,
         title: el.component,
-        route: el.component,
+        route: 'docs/' + el.component,
         settings: {
             component: el.component,
             category: el.categories,
