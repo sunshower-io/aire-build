@@ -21,6 +21,7 @@ pipeline {
 
         stage('Build and increment') {
             steps {
+                sh "echo 'PREFIX: \$(npm get prefix)'"
                 sh "git tag -d \$(git tag -l)"
                 sh "git config user.name '$GITHUB_USR'"
                 sh "git config user.email '${GITHUB_USR}@sunshower.io'"
