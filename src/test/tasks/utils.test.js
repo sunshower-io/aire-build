@@ -97,3 +97,8 @@ test('utils:readsection must read a section correctly when a section exists', ()
     let secs = cmps[0].sections[0];
     expect(secs.examples[1].name).toBe("Hello World");
 });
+
+test('utils:readSection', () => {
+
+
+});
