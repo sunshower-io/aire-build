@@ -27,6 +27,7 @@ pipeline {
                     """
 
                 sh "npm-login-noninteractive -u ${NPM_USR} -p ${NPM_PSW} -e ${NPM_DETAILS_USR} "
+                sh "git clean -fd"
                 sh "npm version patch"
                 sh "npm publish --access=public"
             }
