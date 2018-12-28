@@ -8,11 +8,7 @@ const
 //================================================================================
 
 module.exports = (gulp) => {
-    const serve = require('./serve.js'),
-        generate = require('./site.js')(gulp);
-    console.log(paths.typescript);
-
-
+    const serve = require('./serve.js');
     const watch = (done) => {
         gulp.watch(paths.pug, gulp.series('build:pug', 'reload'));
         if(paths.allStyles) {
