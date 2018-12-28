@@ -20,6 +20,7 @@ pipeline {
 
         stage('Build and increment') {
             steps {
+                sh "echo ${PWD}"
                 sh "npm install"
                 sh """
                     npx jest
