@@ -31,7 +31,6 @@ pipeline {
 
         stage('POMs') {
             environment {
-                CURRENT_VERSION = sh "echo \$(npm list --depth=0 | grep aire-build | cut -d \" \" -f 1 | cut -d \"@\" -f 3)"
             }
             when {
                 branch 'master'
@@ -45,6 +44,9 @@ pipeline {
 
 
                     steps {
+                        script {
+                            env.CURRENT_VERSION = sh "echo \$(npm list --depth=0 | grep aire-build | cut -d \" \" -f 1 | cut -d \"@\" -f 3)"
+                        }
                         sh "git tag -d \$(git tag -l)"
                         /**
                          * Set Git Config
@@ -67,12 +69,10 @@ pipeline {
                          */
                         extractVersions(version: env.CURRENT_VERSION)
 
-
                         /**
                          * Tag build
                          */
                         sh "git tag -af v${env.NEXT_VERSION} -m 'Releasing ${env.NEXT_VERSION} [skip-build]'"
-
 
                         /**
                          * Push tag
