@@ -73,7 +73,7 @@ pipeline {
                         /**
                          * push
                          */
-                        sh "git push -u origin HEAD:master"
+                        sh "git push -u origin master"
 
                     }
                 }
