@@ -45,6 +45,7 @@ pipeline {
 
 
                     steps {
+                        sh "git tag -d \$(git tag -l)"
                         /**
                          * Set Git Config
                          */
@@ -53,6 +54,7 @@ pipeline {
                         sh "git config user.email '${GITHUB_USR}@sunshower.io'"
                         sh "git remote set-url origin https://${GITHUB_USR}:${GITHUB_PSW}@github.com/sunshower-io/aire-build"
 
+                        sh "npm-login-noninteractive -u ${NPM_USR} -p ${NPM_PSW} -e ${NPM_DETAILS_USR} "
                         /**
                          * release
                          */
