@@ -21,6 +21,9 @@ pipeline {
 
         stage('Build and increment') {
             steps {
+                sh "git config user.name '$GITHUB_USR'"
+                sh "git config user.email '${GITHUB_USR}@sunshower.io'"
+                sh "git remote set-url origin https://${GITHUB_USR}:${GITHUB_PSW}@github.com/sunshower-io/aire-build"
                 sh "npm version patch"
                 sh "npm install"
                 sh """
@@ -30,9 +33,6 @@ pipeline {
                 sh "npm-login-noninteractive -u ${NPM_USR} -p ${NPM_PSW} -e ${NPM_DETAILS_USR} "
                 sh "git clean -fd"
                 sh "npm publish --access=public"
-                sh "git config user.name '$GITHUB_USR'"
-                sh "git config user.email '${GITHUB_USR}@sunshower.io'"
-                sh "git remote set-url origin https://${GITHUB_USR}:${GITHUB_PSW}@github.com/sunshower-io/aire-build"
                 sh "git commit -am 'releasing'"
                 sh "git push origin HEAD:${GIT_BRANCH}"
             }
