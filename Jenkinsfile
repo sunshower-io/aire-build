@@ -64,16 +64,13 @@ pipeline {
                          *
                          */
 
-                        sh "git checkout master"
-                        sh "git branch --set-upstream-to=origin/master master"
                         sh "git merge tmp"
-                        sh "git commit -am 'releasing [skip-build]'"
                         sh "git branch -d tmp"
 
                         /**
                          * push
                          */
-                        sh "git push -u origin master"
+                        sh "git push -u origin HEAD:master"
 
                     }
                 }
