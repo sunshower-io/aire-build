@@ -30,6 +30,7 @@ pipeline {
                 sh "git clean -fd"
                 sh "git config user.name '$GITHUB_USR'"
                 sh "git config user.email '${GITHUB_USR}@sunshower.io'"
+                sh "git remote set-url origin https://${GITHUB_USR}:${GITHUB_PSW}@github.com/sunshower-io/aire-build"
                 sh "git commit -am 'releasing'"
                 sh "git push origin HEAD"
                 sh "npm version patch"
