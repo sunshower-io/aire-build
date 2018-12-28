@@ -21,9 +21,6 @@ pipeline {
 
         stage('Build and increment') {
             steps {
-                sh "echo ${PWD}"
-                sh "echo \$(whoami)"
-                sh "echo ls -la /"
                 sh "npm install"
                 sh """
                     npx jest
