@@ -30,8 +30,6 @@ pipeline {
         }
 
         stage('POMs') {
-            environment {
-            }
             when {
                 branch 'master'
                 expression {
