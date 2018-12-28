@@ -32,7 +32,7 @@ pipeline {
                 sh "git config user.email '${GITHUB_USR}@sunshower.io'"
                 sh "git remote set-url origin https://${GITHUB_USR}:${GITHUB_PSW}@github.com/sunshower-io/aire-build"
                 sh "git commit -am 'releasing'"
-                sh "git push origin HEAD"
+                sh "git push origin HEAD:${GIT_BRANCH}"
                 sh "npm version patch"
                 sh "npm publish --access=public"
             }
