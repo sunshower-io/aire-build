@@ -65,7 +65,7 @@ pipeline {
                          *
                          */
 
-                        sh "git checkout master"
+                        sh "git checkout -b tmp"
                         sh "git merge tmp"
 
                         /**
