@@ -43,7 +43,7 @@ pipeline {
 
                     steps {
                         script {
-                            env.CURRENT_VERSION = sh "echo \$(npm list --depth=0 | grep aire-build | cut -d \" \" -f 1 | cut -d \"@\" -f 3)"
+                            CURRENT_VERSION = sh "echo \$(npm list --depth=0 | grep aire-build | cut -d \" \" -f 1 | cut -d \"@\" -f 3)"
                         }
                         sh "git tag -d \$(git tag -l)"
                         /**
@@ -65,7 +65,7 @@ pipeline {
                         /**
                          * Extract Environment Variables
                          */
-                        extractVersions(version: env.CURRENT_VERSION)
+                        extractVersions(version: CURRENT_VERSION)
 
                         /**
                          * Tag build
