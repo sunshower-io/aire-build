@@ -21,6 +21,7 @@ pipeline {
 
         stage('Build and increment') {
             steps {
+                sh "npm version patch"
                 sh "npm install"
                 sh """
                     npx jest
@@ -28,7 +29,6 @@ pipeline {
 
                 sh "npm-login-noninteractive -u ${NPM_USR} -p ${NPM_PSW} -e ${NPM_DETAILS_USR} "
                 sh "git clean -fd"
-                sh "npm version patch"
                 sh "npm publish --access=public"
                 sh "git config user.name '$GITHUB_USR'"
                 sh "git config user.email '${GITHUB_USR}@sunshower.io'"
