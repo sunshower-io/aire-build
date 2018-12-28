@@ -8,6 +8,7 @@ pipeline {
     agent {
         docker {
             image 'sunshower/ui-image:1.0.0'
+            args "-u root --privileged"
         }
     }
 
