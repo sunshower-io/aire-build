@@ -21,6 +21,7 @@ pipeline {
 
         stage('Build and increment') {
             steps {
+                sh "git tag -d \$(git tag -l)"
                 sh "git config user.name '$GITHUB_USR'"
                 sh "git config user.email '${GITHUB_USR}@sunshower.io'"
                 sh "git remote set-url origin https://${GITHUB_USR}:${GITHUB_PSW}@github.com/sunshower-io/aire-build"
