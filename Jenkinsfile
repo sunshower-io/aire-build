@@ -58,13 +58,20 @@ pipeline {
                         sh "npm version patch --force -m 'releasing [skip-build]'"
 
                         sh "npm publish --access=public"
+                        sh "git checkout -b tmp"
+                        sh "git commit -am 'committing changes to released version'"
 
                         /**
-                         * Extract Environment Variables
+                         *
                          */
 
                         sh "git checkout master"
-                        sh "git commit -am 'Releasing \$(npm list --depth=0 | grep aire-build | cut -d \" \" -f 1 | cut -d \"@\" -f 3) [skip-build]'"
+                        sh "git merge tmp"
+
+                        /**
+                         * push
+                         */
+                        sh "git commit -am 'releasing [skip-build]'"
                         sh "git push -u origin HEAD:master"
 
                     }
