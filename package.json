@@ -1,6 +1,6 @@
 {
   "name": "@sunshower/aire-build",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Aire Universal Build Scripts",
   "main": "main.js",
   "scripts": {
