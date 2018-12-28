@@ -64,7 +64,7 @@ pipeline {
                          *
                          */
 
-                        sh "git checkout origin/master"
+                        sh "git checkout master"
                         sh "git branch --set-upstream-to=origin/master master"
                         sh "git merge tmp"
                         sh "git commit -am 'releasing [skip-build]'"
