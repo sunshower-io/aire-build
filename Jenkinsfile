@@ -59,13 +59,12 @@ pipeline {
                         sh "npm version patch --force -m 'releasing [skip-build]'"
 
                         sh "npm publish --access=public"
-                        sh "git commit -am 'committing changes to released version'"
 
                         /**
                          *
                          */
 
-                        sh "git checkout master"
+                        sh "git checkout origin/master"
                         sh "git merge tmp"
                         sh "git branch -d tmp"
 
