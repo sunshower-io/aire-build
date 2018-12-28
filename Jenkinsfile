@@ -63,7 +63,8 @@ pipeline {
                          * Extract Environment Variables
                          */
 
-                        sh "git commit -am 'Releasing ${env.NEXT_VERSION} [skip-build]'"
+                        sh "git checkout master"
+                        sh "git commit -am 'Releasing \$(npm list --depth=0 | grep aire-build | cut -d \" \" -f 1 | cut -d \"@\" -f 3) [skip-build]'"
                         sh "git push -u origin HEAD:master"
 
                     }
