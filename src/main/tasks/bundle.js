@@ -27,5 +27,5 @@ function unbundle() {
 
 module.exports = (gulp) => {
     gulp.task('unbundle', unbundle);
-    gulp.task('bundle', gulp.series('build', bundle));
+    gulp.task('bundle', bundle);
 };
