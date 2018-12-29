@@ -82,12 +82,15 @@ const locatePackageIn = (packageFile, name) => {
         dev = false,
         dep = jspm.dependencies,
         devdep = jspm.devDependencies,
-        deps = dev ? devdep : dep,
+        deps = dev ? devdep : dep;
+
+    let
         actualDependency = deps[name].replace('^', ''),
-        directory = actualDependency.split(':').join(path.sep),
-        result = `jspm_packages/${directory}`;
-    console.info(`Successfully resolved package: ${name} at ${result}`);
-    return result;
+        directory = `jspm_packages/npm/${name}@${actualDependency}`;
+        // directory = actualDependency.split(':').join(path.sep),
+        // result = `jspm_packages/${directory}`;
+    console.info(`Successfully resolved package: ${name} at ${directory}`);
+    return directory;
 };
 const locatePackage = name => {
     return locatePackageIn(pkg, name);
