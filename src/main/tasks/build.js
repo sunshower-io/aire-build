@@ -114,6 +114,7 @@ const copyScss = () => {
 
 module.exports = (gulp) => {
 
+    require('./lint')(gulp);
     require('./watch.js')(gulp);
     const site = require('./site.js');
     gulp.task('aire:generate', site.aireGenerate);
@@ -157,6 +158,9 @@ module.exports = (gulp) => {
             )));
 
 
+    require('./bundle')(gulp);
+    require('./export-release')(gulp);
+    require('./prepare-release')(gulp);
 };
 
 
